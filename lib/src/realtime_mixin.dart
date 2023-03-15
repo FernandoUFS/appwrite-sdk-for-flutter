@@ -124,7 +124,7 @@ mixin RealtimeMixin {
     );
   }
 
-  RealtimeSubscription subscribeTo(List<String> channels) {
+  Future<RealtimeSubscription> subscribeTo(List<String> channels) async {
     StreamController<RealtimeMessage> controller = StreamController.broadcast();
     for(var channel in channels) {
       if (!_channels.containsKey(channel)) {
@@ -132,7 +132,7 @@ mixin RealtimeMixin {
       }
       _channels[channel]!.add(controller);
     }
-    Future.delayed(Duration.zero, () => _createSocket());
+    await Future.delayed(Duration.zero, () => _createSocket());
     RealtimeSubscription subscription = RealtimeSubscription(
         stream: controller.stream,
         close: () async {

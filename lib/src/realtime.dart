@@ -40,7 +40,7 @@ abstract class Realtime extends Service {
   /// subscription.close();
   /// ```
   /// 
-  RealtimeSubscription subscribe(List<String> channels);
+  Future<RealtimeSubscription> subscribe(List<String> channels);
 
   // The [close code][] set when the WebSocket connection is closed.
   ///
